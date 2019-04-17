@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @question.name %>
+</p>
+
+<p>
+  <strong>Qtype:</strong>
+  <%= @question.qtype %>
+</p>
+
+<p>
+  <strong>Subgenre:</strong>
+  <%= @question.subgenre.name %>
+</p>
+
+<%= link_to 'Edit', edit_question_path(@question) %> |
+<%= link_to 'Back', {:controller => "questions" ,:action => "index", :subgenre => @question.subgenre_id} %>

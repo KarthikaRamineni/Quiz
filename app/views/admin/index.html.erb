@@ -1,0 +1,13 @@
+<% if Array(User.where(:id => session[:user_id])).first.id == 6 %>
+<br/>
+<%= link_to 'View Users', users_path %>
+<br/>
+<br/>
+<%= link_to 'View Genres', genres_path %>
+<br/>
+<br/>
+<%= link_to 'Leaderboard', {:controller => 'leaderboards', :action => 'index'} %>
+
+<% else %>
+<h1><%= 'You are not authorized to view this page' %></h1>
+<% end %>

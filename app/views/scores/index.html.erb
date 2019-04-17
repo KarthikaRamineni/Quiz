@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Scores</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Score</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @scores = Score.where(user_id: params[:user], subgenre_id: params[:subgenre]) %>
+    <% @scores.each do |score| %>
+      <tr>
+        <td><%= score.value %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Home', {:controller => 'player', :action => 'index'} %>
+<%= link_to 'Leaderboard', {:controller => 'leaderboards', :action => 'index'} %>

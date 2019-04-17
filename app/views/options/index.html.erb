@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<% if Array(User.where(:id => session[:user_id])).first.id == 6 %>
+<h1>Options</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Option</th>
+      <!--<th>Answer</th>-->
+      <!--<th>Question</th>-->
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% Array(@options).each do |option| %>
+      <tr>
+        <td><%= option.no %></td>
+        <td><%= option.name %></td>
+        <!--<td><%= option.answer %></td>-->
+        <!--<td><%= option.question.name %></td>-->
+        <td><%= link_to 'Show', option %></td>
+        <td><%= link_to 'Edit', edit_option_path(option) %></td>
+        <td><%= link_to 'Destroy', option, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<br/>
+
+<% else %>
+  <% Array(@questions).each_with_index do |question, index| %>
+  <%= form_tag(:subgenre => question.subgenre_id, :method => 'POST', :it => params[:itr]) do %>
+  <% if params[:itr].to_i == index+1 %>
+    <br/><b><%= question.qtype+" answer" %></b><br/><br/><%= label_tag question.name %>
+    <% @opt = Option.where(question_id: question.id) %>
+    <% @opt.each do |option| %>
+        <%= check_box_tag(:name[option.no], option.id) %>
+        <%= label_tag option.name %>
+    <% end %>
+    <%= submit_tag "Submit" %><br/><br/>
+  <% end %>
+  <% end %>
+  <% end %>
+  <br/>
+  <%= link_to "Finish Quiz", {:controller => 'scores', :action => 'index', user: Array(User.where(:id => session[:user_id])).first.id, subgenre: params[:subgenre]} %>
+<% end %>

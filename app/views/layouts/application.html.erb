@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quiz</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if session[:user_id] %>
+    <p align="right" color="red"><%= link_to "Logout", sessions_destroy_path %></p>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

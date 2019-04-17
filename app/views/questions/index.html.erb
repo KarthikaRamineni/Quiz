@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<% if Array(User.where(:id => session[:user_id])).first.id == 6 %>
+<h1>Questions</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <!--<th>Subgenre</th>-->
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% Array(@questions).each do |question| %>
+      <tr>
+        <td><%= question.name %></td>
+        <td><%= question.qtype %> answer</td>
+        <!--<td><%= question.subgenre.name %></td>-->
+        <td><%= link_to 'Show', question %></td>
+        <td><%= link_to 'Edit', edit_question_path(question) %></td>
+        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Options', {:controller => "options", :action => "index", :question => question.id } %></td>
+        <td><%= link_to 'Add Option', {:controller => "options", :action => "new", :question => question.id} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to 'Back', {:controller => "subgenres", :action => "index", :genre => Subgenre.find_by_genre_id(params[:subgenre])} %>
+
+<% else %>
+  <%= link_to 'Start Quiz', {:controller => "options", :action => "index", :subgenre => params[:subgenre], :itr => 1} %>
+<% end %>
